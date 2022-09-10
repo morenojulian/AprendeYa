@@ -14,6 +14,11 @@ function cargarEventListener() {
     miCarrito = [];
     limpiarCarrito();
   });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    miCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    carritoHTML();
+  });
 }
 
 //Funciones
@@ -91,8 +96,13 @@ function carritoHTML() {
 
     contenedorCarrito.appendChild(row);
   });
-}
 
+  //Storage
+  sincronizarStorage();
+}
+function sincronizarStorage() {
+  localStorage.setItem("carrito", JSON.stringify(miCarrito));
+}
 // Limpia el primer elemento del carrito cada vez que agregamos un curso nuevo para no repetirlo.
 function limpiarCarrito() {
   while (contenedorCarrito.firstChild) {
